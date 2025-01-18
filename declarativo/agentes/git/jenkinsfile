@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout Código Fuente') {
+            steps {
+                checkout([
+                    $class: 'GitSCM', 
+                    branches: [[name: '*/main']], // Rama a clonar
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/usuario/repo.git', 
+                        credentialsId: 'credenciales-git-id'
+                    ]]
+                ])
+            }
+        }
+    }
+}

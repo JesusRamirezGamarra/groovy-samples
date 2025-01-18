@@ -1,0 +1,17 @@
+pipeline{
+    agent{
+        dockerfile {
+            //file '/home/jenkins/agentes/Dockerfile-USE/Dockerfile'
+            filename 'Dockerfile'
+            dir 'docker'
+        }
+    }
+
+    stages{
+        stage('Construir una imagen de Docker'){
+            steps{
+                echo 'consruyendo imagen de Docker'
+            }
+        }
+    }
+}

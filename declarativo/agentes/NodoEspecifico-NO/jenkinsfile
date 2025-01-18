@@ -1,0 +1,20 @@
+pipeline{
+    agent none
+
+    environment{
+        CUSTOM_VAR = 'Jenkins'      
+    }
+    stages{
+        stage('Compuilar proyecto NODE'){
+            agent{
+                docker{
+                    image 'node:18-alpine'
+                    args '-p 3000:3000'
+                }
+            }
+            steps{
+                    echo "El valor de mi variable CUSTOM_VAR es: ${env.CUSTOM_VAR}"
+            }
+        }
+    }
+}

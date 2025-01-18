@@ -1,0 +1,14 @@
+pipeline{
+    agent any // Nodo no especifico    
+
+    environment{
+        CUSTOM_VAR = 'Jenkins'      
+    }
+    stages{
+        stage('Print : Mostrar variables'){
+            steps{
+                    echo "El valor de mi variable CUSTOM_VAR es: ${env.CUSTOM_VAR}"
+            }
+        }
+    }
+}

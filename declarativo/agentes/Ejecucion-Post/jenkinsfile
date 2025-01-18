@@ -1,0 +1,29 @@
+pipeline{
+    agennt  any
+
+    stages {
+        stage('Print : Mostrar variables'){
+            steps{
+                echo "El valor de mi variable CUSTOM_VAR es: ${env.CUSTOM_VAR}"
+            }
+        }
+    }
+
+    post{
+        always{
+            echo "Este mensaje se muestra siempre"
+        }
+        success{
+            echo "Este mensaje se muestra solo si el build es exitoso"
+        }
+        failure{
+            echo "Este mensaje se muestra solo si el build falla"
+        }
+        unstable{
+            echo "Este mensaje se muestra solo si el build es unstable"
+        }
+        changed{
+            echo "Este mensaje se muestra si el estado del build cambia"
+        }
+    }
+}

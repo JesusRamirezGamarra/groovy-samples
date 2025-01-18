@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+    options {
+        timeout(time: 1, unit: 'MINUTES')
+    }
+  
+    stages {
+        stage('Inicio de options') {
+            steps {
+                echo "El pipeline ejecuta una tarea con un timeout de 1 minutos"
+            }
+        }
+        stage('Tarea por tiempo') {
+            steps {
+                echo "Empezando simulacion de tarea larga..."
+                catchError(buildResult: 'ABORTED', stageResult: 'ABORTED') {
+                    echo 'Empezando la actividad de error...'
+                    sleep(time: 2, unit: 'MINUTES')
+                }
+            }
+        }
+
+        stage('Finalizando') {
+            steps {
+                echo "Tarea procesada..."
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                if (currentBuild.result == 'ABORTED') {
+                    currentBuild.result = 'FAILURE'
+                    echo 'ESTADO EN ABORTADO O FALLIDO'
+                }
+            }
+        }
+
+        failure {
+            echo 'PIPELINE SETEADO CON UN ESTADO FALLIDO DEBIDO AL TIMEOUT'
+        }
+    }
+}
