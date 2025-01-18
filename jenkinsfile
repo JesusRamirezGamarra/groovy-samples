@@ -9,6 +9,9 @@ pipeline {
         stage('Detectar commits en mi repositorio') {
             steps {
                script {
+                // Asegurarse de que el repositorio esté actualizado
+                sh 'git fetch --all'
+
                 def mensajeDelCommit = sh(
                     script: "git log -1 --pretty=%B",
                     returnStdout: true
